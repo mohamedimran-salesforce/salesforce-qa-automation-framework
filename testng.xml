@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="QA Automation Suite">
+  <test name="UI - Page Object Model">
+    <classes><class name="com.imran.qa.tests.LoginTests"/><class name="com.imran.qa.tests.CartTests"/></classes>
+  </test>
+  <test name="API - REST">
+    <classes><class name="com.imran.qa.tests.ApiTests"/></classes>
+  </test>
+  <test name="BDD - Cucumber">
+    <classes><class name="com.imran.qa.bdd.RunCucumberTest"/></classes>
+  </test>
+</suite>

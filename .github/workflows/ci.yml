@@ -1,0 +1,36 @@
+name: QA Automation CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Run tests and build report
+        run: mvn -B test surefire-report:report -Dsurefire.failIfNoSpecifiedTests=false
+        continue-on-error: true
+      - name: Assemble report site
+        run: |
+          mkdir -p site
+          REPORT=$(find target -name 'surefire*.html' | head -1)
+          if [ -n "$REPORT" ]; then cp "$REPORT" site/index.html; else echo 'No report generated' > site/index.html; fi
+          cp target/cucumber-report.html site/cucumber.html 2>/dev/null || true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4

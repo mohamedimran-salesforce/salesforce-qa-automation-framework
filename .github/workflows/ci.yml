@@ -21,8 +21,12 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Run tests and build report
-        run: mvn -B test surefire-report:report -Dsurefire.failIfNoSpecifiedTests=false
+      - name: Run tests
+        id: tests
+        run: mvn -B test
+        continue-on-error: true
+      - name: Build HTML report
+        run: mvn -B surefire-report:report-only
       - name: Assemble report site
         if: always()
         run: |
@@ -36,3 +40,6 @@ jobs:
           path: site
       - uses: actions/deploy-pages@v4
         if: always()
+      - name: Fail the build if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1

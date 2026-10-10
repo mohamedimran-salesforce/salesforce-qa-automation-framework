@@ -1,5 +1,8 @@
 # Salesforce QA Automation Framework
 
+[![QA Automation CI](https://github.com/mohamedimran-salesforce/salesforce-qa-automation-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/mohamedimran-salesforce/salesforce-qa-automation-framework/actions/workflows/ci.yml)
+**[View the latest test report](https://mohamedimran-salesforce.github.io/salesforce-qa-automation-framework/)**
+
 A Selenium, Java, TestNG, Cucumber and RestAssured framework built with the Page Object Model. It runs on every push through GitHub Actions and publishes an HTML test report to GitHub Pages.
 
 Targets are public practice systems, so no client data is involved:
